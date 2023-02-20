@@ -1,4 +1,7 @@
 
+using BlazingTrails.Api.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 namespace BlazingTrails.Api
 {
     public class Program
@@ -6,10 +9,13 @@ namespace BlazingTrails.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
-            // Add services to the container.
+
+            builder.Services.AddDbContext<BlazingTrailsContext>(options =>
+                 options.UseSqlite(builder.Configuration.GetConnectionString("BlazingTrailsContext")));
 
             builder.Services.AddControllers();
+
+
 
             var app = builder.Build();
 
@@ -28,6 +34,11 @@ namespace BlazingTrails.Api
 
             app.MapControllers();
             app.MapFallbackToFile("index.html");
+
+
+            
+
+           
 
             app.Run();
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -15,7 +15,8 @@
   <ItemGroup>    
     <Watch Include="**/*.scss" />    
     <Watch Remove="Features\Home\SearchFilter.razor.scss" />    
-    <Watch Remove="Features\Home\TrailSearch.razor.scss" />                               
+    <Watch Remove="Features\Home\TrailSearch.razor.scss" />    
+    <ProjectReference Include="..\BlazingTrails.Shared\BlazingTrails.Shared.csproj" />                               
     <None Update="**/*.css" Watch="false" />                    
   </ItemGroup>                                                  
 
