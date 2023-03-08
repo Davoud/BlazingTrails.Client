@@ -1,6 +1,9 @@
 
 using BlazingTrails.Api.Persistence;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace BlazingTrails.Api
 {
@@ -12,6 +15,10 @@ namespace BlazingTrails.Api
 
             builder.Services.AddDbContext<BlazingTrailsContext>(options =>
                  options.UseSqlite(builder.Configuration.GetConnectionString("BlazingTrailsContext")));
+
+            builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+
+            builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly));
 
             builder.Services.AddControllers();
 

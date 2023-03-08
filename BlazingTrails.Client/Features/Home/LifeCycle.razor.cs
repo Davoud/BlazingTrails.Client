@@ -41,6 +41,6 @@ public partial class LifeCycle
         => Console.WriteLine($"OnAfterRender (First render: {firstRender})");
  
     protected override async Task OnAfterRenderAsync(bool firstRender)                                   
-        => Console.WriteLine($"OnAfterRenderAsync (First render: {firstRender})");
+        => await Task.Run(() => Console.WriteLine($"OnAfterRenderAsync (First render: {firstRender})"));
 }
 
