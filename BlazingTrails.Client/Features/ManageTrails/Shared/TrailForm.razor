@@ -1,0 +1,32 @@
+﻿<EditForm EditContext="_editContext" OnValidSubmit="SubmitForm">
+
+
+</EditForm>
+
+@code {
+    private TrailDto _trail = new TrailDto();
+    private IBrowserFile? _trailImage;
+    private EditContext _editContext = default!;
+
+    [Parameter]
+    public Func<TrailDto, IBrowserFile?, Task> OnSubmit { get; set; }
+
+    public void ResetForm()
+    {
+        _trail = new TrailDto();
+        _editContext = new EditContext(_trail);
+        _editContext.SetFieldCssClassProvider(new BootstrapCssClassProvider());
+        _trailImage = null;
+    }
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_trail);
+        _editContext.SetFieldCssClassProvider(new BootstrapCssClassProvider());
+    }
+
+    private void LoadTrailImage(InputFileChangeEventArgs e) => _trailImage = e.File;
+
+    private async Task SubmitForm() => await OnSubmit(_trail, _trailImage);
+
+}

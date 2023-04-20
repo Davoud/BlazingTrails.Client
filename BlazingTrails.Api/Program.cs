@@ -3,6 +3,7 @@ using BlazingTrails.Api.Persistence;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System.Reflection;
 
 namespace BlazingTrails.Api
@@ -22,8 +23,6 @@ namespace BlazingTrails.Api
 
             builder.Services.AddControllers();
 
-
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -37,18 +36,18 @@ namespace BlazingTrails.Api
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Images")),
+                RequestPath = new Microsoft.AspNetCore.Http.PathString("/Images")
+            });
+
             app.UseRouting();
 
             app.MapControllers();
             app.MapFallbackToFile("index.html");
 
-
-            
-
-           
-
             app.Run();
-
         }
     }
 }
